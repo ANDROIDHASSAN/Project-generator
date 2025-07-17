@@ -11,7 +11,7 @@ const python = {
 
 route.post("/generate",(req,res)=>{
     const body = req.body.techstack;
-    if(body === "python".toLowerCase())
+    if(body === "python")
     {
         res.send(python)
     }
