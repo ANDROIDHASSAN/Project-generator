@@ -1,5 +1,5 @@
-const express = require("express")
-const route = express.Router();
+const express = require("express");
+const router = express.Router();
 
 const python = {
     idea1: "Simple calculator",
@@ -9,12 +9,18 @@ const python = {
     idea5: "Simple Image Detection",
 };
 
-route.post("/generate",(req,res)=>{
-    const body = req.body.techstack;
-    if(body === "python")
-    {
-        res.send(python)
-    }
-})
+router.post("/generate", (req, res) => {
+    const { techstack } = req.body;
 
-module.exports = route;
+    if (!techstack) {
+        return res.status(400).json({ error: "Tech stack is required!" });
+    }
+
+    if (techstack.toLowerCase() === "python") {
+        return res.json(python);
+    } else {
+        return res.status(404).json({ error: "Tech stack not supported." });
+    }
+});
+
+module.exports = router;
